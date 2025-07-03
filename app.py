@@ -12,9 +12,9 @@ from langchain_community.document_loaders import PyPDFLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 import os
 from dotenv import load_dotenv
-load_dotenv()
+hf_key = st.secrets["hf"]["key"]
+groq_key = st.secrets["groq"]["api_key"]
 
-os.environ["HF_KEY"]=os.getenv("HF_KEY")
 embeddings=HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
 
