@@ -22,3 +22,7 @@ uvicorn
 langserve
 sse_starlette
 chromadb
+pysqlite3-binary
+chromadb
+langchain-chroma
+
