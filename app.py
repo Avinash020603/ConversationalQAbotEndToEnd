@@ -109,9 +109,9 @@ if api_key:
         rag_chain=create_retrieval_chain(history_aware_retriever,question_answer_chain)
 
         def get_session_history(session:str)->BaseChatMessageHistory:
-            if session_id not in st.session_state.store:
-                st.session_state.store[session_id]=ChatMessageHistory()
-            return st.session_state.store[session_id]
+            if session not in st.session_state.store:
+                st.session_state.store[session]=ChatMessageHistory()
+            return st.session_state.store[session]
         
 
         conversational_rag_chain=RunnableWithMessageHistory(
@@ -132,9 +132,13 @@ if api_key:
                 },
             )
 
-            st.write(st.session_state.store)
-            st.write("Assistant", response['answer'])
-            st.write("Chat History",session_history.messages)
+            #st.write(st.session_state.store)
+            st.write("Assistant:", response['answer'])
+            for msg in session_history.messages:
+                if msg.type == "human":
+                    st.chat_message("user").write(msg.content)
+                else:
+                    st.chat_message("assistant").write(msg.content)
 
 else:
     st.warning("Please enter the Groq API key")
